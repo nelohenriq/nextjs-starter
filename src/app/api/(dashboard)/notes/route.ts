@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import connectDB from "../../../../lib/db";
 import User from "../../../../lib/models/User";
-import mongoose, { Types } from "mongoose";
+import { Types } from "mongoose";
 import Note from "../../../../lib/models/Notes";
 
 export const GET = async (req: Request) => {

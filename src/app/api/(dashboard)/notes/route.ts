@@ -72,24 +72,24 @@ export const PATCH = async (req: Request) => {
         const userId = searchParams.get("userId");
         
         if( !noteId || !Types.ObjectId.isValid(noteId) ) {
-            return new NextResponse(JSON.stringify({ message: "Note not found" }),  {status: 404 });                    
+            return new NextResponse(JSON.stringify( { message: "Note not found" } ),  {status: 404 });                    
         }
 
         if( !userId || !Types.ObjectId.isValid(userId) ) {
-            return new NextResponse(JSON.stringify({ message: "User not found" }),  {status: 404 });          
+            return new NextResponse(JSON.stringify( { message: "User not found" } ),  {status: 404 });          
         }
         await connectDB();
 
         const user = await User.findById(userId);
 
         if( !user ) {
-            return new NextResponse(JSON.stringify({ message: "User not found" }),  {status: 404 });
+            return new NextResponse(JSON.stringify( { message: "User not found" } ),  {status: 404 });
         }
 
         const note = await Note.findOne({ _id: noteId, user: userId });
 
         if(!note) {
-            return new NextResponse(JSON.stringify({ message: "Note not found" }),  {status: 404 });
+            return new NextResponse(JSON.stringify( { message: "Note not found" } ),  {status: 404 });
         }
 
         const updatedNote = await Note.findByIdAndUpdate(noteId, {
@@ -101,6 +101,6 @@ export const PATCH = async (req: Request) => {
 
         return new NextResponse(JSON.stringify( { message: "Note updated successfully", note: updatedNote } ), { status: 200 });
     } catch (error) {
-        return new NextResponse("Error updating note: " + error, { status: 500 });
+        return new NextResponse( "Error updating note: " + error, { status: 500 } );
     }
 }
